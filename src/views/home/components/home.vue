@@ -2,7 +2,6 @@
     <div class="wrap">
         <div class="rank">
             <p>送至：北京八维研修学院 </p>
-            <!-- <Map/> -->
         </div>
         <div class="banner">
             <swiper :options="swiperOption" ref="mySwiper">
@@ -39,53 +38,51 @@
 </template>
 
 <script>
-import {bannerList,getList} from '@/api/index'
+import api from '@/api/index'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import axios from 'axios'
-import Map from '@/components/map'
 export default {
     data(){
         return{
             bannerList:[],
             navList:[
                 {
-                    img:'@/assets/1.png',
+                    img:require('@/assets/1.png'),
                     title:"蔬菜每日鲜"
                 },
                 {
-                    img:'@/assets/2.png',
+                    img:require('@/assets/2.png'),
                     title:"肉蛋禽"
                 },
                 {
-                    img:'@/assets/3.png',
+                    img:require('@/assets/3.png'),
                     title:"母婴天地"
                 },
                 {
-                    img:'@/assets/4.png',
+                    img:require('@/assets/4.png'),
                     title:"进店把脉"
                 },
                 {
-                    img:'@/assets/5.png',
+                    img:require('@/assets/5.png'),
                     title:"美通卡"
                 },
                 {
-                    img:'@/assets/6.png',
+                    img:require('@/assets/6.png'),
                     title:"早晚市"
                 },
                 {
-                    img:'@/assets/7.png',
+                    img:require('@/assets/7.png'),
                     title:"品牌汇"
                 },
                 {
-                    img:'@/assets/8.png',
+                    img:require('@/assets/8.png'),
                     title:"领劵中心"
                 },
                 {
-                    img:'@/assets/9.png',
+                    img:require('@/assets/9.png'),
                     title:"支付优惠"
                 },
                 {
-                    img:'@/assets/10.png',
+                    img:require('@/assets/10.png'),
                     title:"直采品牌"
                 }
             ],
@@ -111,10 +108,8 @@ export default {
         swiperSlide
     },    
     created () {
-        axios.get("/api/home/banner").then(res=>{
-            let {code,data}=res.data
-            let curDate=new Date().getTime()
-            this.bannerList=data.filter(item=>curDate > new Date(item.start_time)*1 && curDate < new Date(item.end_time)*1)
+        api.banner().then(res=>{
+            this.bannerList = res.data;
         })
         getList({
             pageid:this.pageid,
@@ -155,8 +150,8 @@ export default {
         text-align: center;
         cursor: pointer;
         dt{
-            width: 75px;
-            height: 60px;
+            width: 60%;
+            height: 60%;
             img{
                 width: 100%;
                 height: 100%;

@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-//
+// import api from '@/api/index'
 import Dialog from "@/components/dialog"
 import axios from "axios"
 export default {
