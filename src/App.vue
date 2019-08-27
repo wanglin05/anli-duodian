@@ -1,43 +1,18 @@
 <template>
-  <div class="box">
+  <div class="wrap">
       <Header :title="$route.meta.title"></Header>
-      
       <div class="main">
-
           <router-view></router-view>
-
       </div>
   </div>
 </template>
 <script>
 export default {
-  props:{
 
-  },
-  components:{
-
-  },
-  data(){
-    return {
-
-    }
-  },
-  computed:{
-
-  },
-  methods:{
-
-  },
-  created(){
-    // console.log(this.$route)
-  },
-  mounted(){
-
-  }
 }
 </script>
 <style lang="scss">
-  .box{
+  .wrap{
     width: 100%;
     height: 100%;
     display: flex;

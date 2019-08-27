@@ -86,9 +86,9 @@ export default {
         .li{
             width: 100%;
             height: 80px;
-            background: #F6F6F6;
+            background: #fff;
             padding: 7px 20px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #ccc;
             display: flex;
             flex-direction: column;
 
@@ -100,7 +100,7 @@ export default {
 
             p:nth-child(2){
                 font-size: 14px;
-                color: #757575;
+                color: #666;
             }
         }
     }

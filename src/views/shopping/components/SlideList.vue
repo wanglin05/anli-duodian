@@ -89,11 +89,11 @@ export default {
         position: absolute;
         right: -70px;
         top: 0;
-        background: red;
+        background: #f00;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: #fff;
     }
 }
 </style>

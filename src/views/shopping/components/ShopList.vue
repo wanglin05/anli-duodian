@@ -84,7 +84,7 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size:16px;
-            color:rgba(17,17,17,1);
+            color:#111;
         }
 
         .guige{
@@ -133,9 +133,9 @@ export default {
             height: 28px;
             border-radius: 50%;
             border: 1px solid #ccc;
-            color: #565656;
+            color: #666;
             margin: 0 5px;
-            background: white;
+            background: #fff;
             font-size: 22px;
         }
 

@@ -9,7 +9,7 @@
             <p style="color:rgba(254,54,20,1);margin:2px 0;fontSize:10px;">自营</p>
             <p class="price"> ￥<span>{{item.price}}</span></p>
             <span class="shopcar" @click="clk_addShopCar(item)">
-                <img src="@/assets/svg/shoppingCar.svg" alt="">
+                <img src="@/assets/shoppingCar.svg" alt="">
             </span>
         </div>
     </div>

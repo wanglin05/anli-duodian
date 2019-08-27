@@ -4,8 +4,8 @@
             <ProtoPullLoading @scroll="upload">
                 
                 <div class="location">
-                    <div class="left" @click="goMap">
-                        <img src="@/assets/svg/图标(1).svg" alt="">
+                    <div class="left" @click="clk_map">
+                        <img src="@/assets/rank.svg" alt="">
                         <span id="container">{{site}}</span>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ export default {
             this.limit += 10;
             this.getData();
         },
-        goMap(){
+        clk_map(){
             this.$router.push('/map')
         }
     },
@@ -93,10 +93,9 @@ export default {
     .home{
         width: 100%;
         height: 100%;
-
         .location{
             width: 100%;
-            height: 49px;
+            height: 50px;
             display: flex;
 
             .left{
@@ -104,7 +103,6 @@ export default {
                 display: flex;
                 align-items: center;
                 padding-left: 5px;
-
                 img{
                     width: 30px;
                     height: 30px;
