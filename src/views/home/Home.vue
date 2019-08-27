@@ -1,21 +1,23 @@
 <template>
     <div class="home">
         <div class="wrap">
-                    <ProtoPullLoading @scroll="upload">
-                        <div class="location">
-                            <div class="left" @click="goMap">
-                                <img src="@/assets/svg/图标(1).svg" alt="">
-                                <span id="container">{{site}}</span>
-                            </div>
-                            <div class="right">
-                                <img src="@/assets/svg/搜索.svg" alt="">
-                            </div>
-                        </div>
-                        <Banner />
-                        <Nav />
-                        <Hot />
-                        <List v-for="(item,index) in data" :key="index" :item="item" className="list"></List>
-                    </ProtoPullLoading>
+            <ProtoPullLoading @scroll="upload">
+                
+                <div class="location">
+                    <div class="left" @click="goMap">
+                        <img src="@/assets/svg/图标(1).svg" alt="">
+                        <span id="container">{{site}}</span>
+                    </div>
+                </div>
+
+                <Banner />
+
+                <Nav />
+
+                <Hot />
+                
+                <List v-for="(item,index) in data" :key="index" :item="item" className="list"></List>
+            </ProtoPullLoading>
         </div>
         <Footer />
     </div>

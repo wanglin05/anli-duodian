@@ -21,8 +21,11 @@ export default {
 	getShopCar: (data)=>axios.get('/api/car/addCar',{
 		params:data
 	}),
-	addCar: (data)=>axios.post('/api/car/addCar',data),
-
-	getUserInfo:(data)=>axios.get('/user/getUserInfo',data)
+	//添加购物车
+	add_shopCar: (data)=>axios.post('/api/car/addCar',data),
+	//减少件数
+	remove_shopCarList: (data)=>axios.post('/api/car/removeCar',data),
+	//删除购物车商品
+	remove_shopCar: (data)=>axios.post('/api/car/removeShop',data)
 
 }

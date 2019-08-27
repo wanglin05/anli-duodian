@@ -2,81 +2,77 @@
     <div class="shoppingCar">
         <div class="wrap">
             <div v-if="!islogin"><router-link to="/login" style="color:blue">去登录</router-link></div>
-            <MyList v-for="(item,index) in shopcardata"
-                    :key="index"
-                    :index="index"
-                    :category_id="item.shopdata.category_id"
-                    :cover="item.shopdata.cover"
-                    :id="item.shopdata.id"
-                    :name1="item.shopdata.name"
-                    :pictures="item.shopdata.pictures"
-                    :price="item.shopdata.price"
-                    :specs="item.shopdata.specs"
-                    :stock="item.shopdata.stock"
-                    :type_id="item.shopdata.type_id"
-                    :shopid="item.shopid"
-                    :showCar="'showCar'"
-                    :checked="item.checked"
-                    :volume="item.shopdata.volume">
-
-                <AddCount :count="item.count"
-                          :user_id="item.userid"
-                          :shop_id="item.shopid">
-                </AddCount>
-
-            </MyList>
-            <div class="allprice">
-                <div class="allche">
-                    <span :class='["allcheckbtn",(allchecka || flag) ? "active" : ""]'></span>
-                    <span class="allcheck">全选</span>
+            <div class="wrapper" v-else>
+                <div class="content" ref="slideContent">
+                    <SlideList v-for="(item,index) in shopCarList" :key="index" :item="item" @remove_slideList="refresh_slideList">
+                        <ShopList :item="item" :index="index"></ShopList>
+                    </SlideList>
                 </div>
-                <div class="allprc">
-                    <span class="allcount">合计</span>
-                    <span>￥{{allPrice}}</span>
-                </div>
-                <div class="gopay">
-                    <span class="gopay_pay">去结算({{0}})</span>
+                <div class="sum_footer">
+                    <div class="left">
+                        <van-checkbox v-model="checked" checked-color="#07c160" @click="clk_all">全选</van-checkbox>
+                    </div>
+                    <div class="center">
+                        合计：<span>￥ {{sum_price}}</span>
+                    </div>
+                    <div class="right">
+                        去结算
+                    </div>
                 </div>
             </div>
         </div>
-        <Footer/>
+
+        <Footer />
     </div>
 </template>
 <script>
-import {mapState,mapActions} from 'vuex';
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
 import api from '@/api/index'
-import MyList from './components/MyList'
-import AddCount from './components/addCount'
+import ShopList from './components/ShopList'
+import SlideList from './components/SlideList'
 export default {
+    name:'shopCar',
+    props:{
+
+    },
     components:{
-        MyList,
-        AddCount
+        ShopList,
+        SlideList
     },
     data(){
         return {
-            flag: false,
-            loginFlg:true
+            checked:false
         }
     },
     computed:{
-        ...mapState('info', ['userinfo']),
-        ...mapState('car', ['shopcardata','allPrice']),
-        allchecka() {
-            return this.shopcardata.every(item => item.checked === true)
-        }
+        ...mapState('user',['islogin']),
+        ...mapGetters('shopCar',['sum_price']),
+        ...mapState('shopCar',['shopCarList','all_checked'])
     },
     methods:{
-        ...mapActions('info',['getuserinfo']),
-        ...mapActions('car',['getShoplist'])
+        ...mapMutations('user',['isloginFn']),
+        ...mapMutations('shopCar',['clk_all_checked','clk_checked']),
+        ...mapActions('shopCar',['getShopCar']),
+        clk_all(){
+            this.clk_all_checked();
+            this.checked = this.all_checked;
+        },
+        refresh_slideList(){
+            Array.from(this.$refs.slideContent.children).forEach(item=>{
+                item.style.transform = `translate(0,0)`;
+            }) 
+        }
     },
-    async activated(){ 
-        await this.getuserinfo();
-        this.loginFlg = false;
+    activated(){
+        this.isloginFn();
+        if(this.islogin){
+            this.getShopCar();
+        }
     },
-    async mounted() {
-        await this.getuserinfo();
-        this.loginFlg = false;
-        await this.getShoplist(this.userinfo.uid);
+    watch:{
+        all_checked(val){
+            this.checked = val;
+        }
     }
 }
 </script>
@@ -89,7 +85,9 @@ export default {
 
         .content{
             flex: 1;
-            overflow: auto;
+            overflow-y: auto;
+        overflow-x: hidden;
+
         }
 
         .sum_footer{

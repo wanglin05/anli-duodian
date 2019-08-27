@@ -1,18 +1,28 @@
 <template>
    <div class="search">
-        <input type="text" placeholder="搜索商品" name="" id="" v-model="val" @input="changeVal">
+        <input type="text" placeholder="搜索超市商品" name="" id="" v-model="ipt_val" @input="change_val">
     </div>
 </template>
 <script>
 export default {
+    props:{
+        val:{
+            default:'',
+        }
+    },
     data(){
         return {
-            val:''
+            ipt_val:''
         }
     },
     methods:{
-        changeVal(){
-            this.$emit('changeVal',this.val)
+        change_val(){
+            this.$emit('change_val',this.ipt_val)
+        }
+    },
+    created(){
+        if(this.val){
+            this.ipt_val = this.val;
         }
     }
 }

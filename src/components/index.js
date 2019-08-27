@@ -6,10 +6,10 @@ import { Toast } from 'vant';
 import ProtoPullLoading from '@/components/ProtoPullLoading'
 
 export default {
-    Header,
-    Footer,
-    List,
-    Bscroll,
-    Toast,
-    ProtoPullLoading,
+	Header,
+	Footer,
+	List,
+	Bscroll,
+	Toast,
+	ProtoPullLoading
 }

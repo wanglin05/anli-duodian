@@ -1,38 +1,37 @@
 <template>
     <div class="type">
+        <!-- 搜索 -->
         <div class="searchBox">
             <Search></Search>
         </div>
         <div class="wrap">
             <div class="content">
                 <div class="left">
-                    <p v-for="(item,index) in typeArr" :key="item.id" :class="{left_active:ind==index}" @click="clkLeft(index)">
+                    <p v-for="(item,index) in typeArr" :key="item.id" :class="{left_active:ind==index}" @click="clk_left(index)">
                         {{item.title}}
                     </p>
                 </div>
                 <div class="right">
-                    <ProtoPullLoading @scroll="upload">
-                        <p class="right-header">
-                            <span :class="{span_active:Rind==-1}" @click="clkAll">全部</span>
-                            <span v-for="(item,index) in rightType" :key="item.id" :class="{span_active:index==Rind}" @click="clkRightSpan(index)">{{item.name}}</span>
-                        </p>
-
-                        <div class="right_content">
-                            <List v-for="item in arr" :key="item.id" :item="item" className="smlist"></List>
-                        </div>
-                    </ProtoPullLoading>
+                    <p class="right-header">
+                        <span :class="{span_active:Rind==-1}" @click="clk_all">全部</span>
+                        <span v-for="(item,index) in rightType" :key="item.id" :class="{span_active:index==Rind}" @click="clk_rightSpan(index)">{{item.name}}</span>
+                    </p>
+                    <div class="right_content">
+                        <ProtoPullLoading @scroll="upload">
+                            <List v-for="(item,index) in arr" :key="index" :item="item" className="smlist"></List>
+                        </ProtoPullLoading>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <Footer></Footer>
+        <Footer />
     </div>
 </template>
 <script>
-//
 import api from '@/api/index'
 import Search from './components/Search'
 export default {
+    name:'type',
     props:{
 
     },
@@ -47,22 +46,26 @@ export default {
             rightType:[],
             arr:[],
             limit:5,
+            page:0
         }
     },
     computed:{
 
     },
     methods:{
-        clkLeft(index){
+        //点击左边
+        clk_left(index){
             this.ind = index;
             this.rightType = this.typeArr[index].children;
             this.getList();
         },
-        clkRightSpan(index){
+        //点击右边头部
+        clk_rightSpan(index){
             this.Rind = index;
             this.getList();
         },
-        clkAll(){
+        //点击全部
+        clk_all(){
             this.Rind = -1;
             this.getList();
         },
@@ -74,10 +77,10 @@ export default {
             obj = RActive ? {
                 type_id: LActive.id,
                 category_id: RActive.id,
-                limit: this.limit
+                limit: this.limit,
             } : {
                 type_id: LActive.id,
-                limit: this.limit
+                limit: this.limit,
             }
             
             api.shopList(obj).then(res=>{
@@ -85,8 +88,24 @@ export default {
             })
         },
         upload(){
-            this.limit += 5;
-            this.getList();
+            this.page++;
+            let LActive = this.typeArr[this.ind];
+            let RActive = this.rightType[this.Rind];
+            let obj = {};
+
+            obj = RActive ? {
+                type_id: LActive.id,
+                category_id: RActive.id,
+                limit: this.limit,
+                pageid: this.page
+            } : {
+                type_id: LActive.id,
+                limit: this.limit,
+                pageid: this.page
+            }
+            api.shopList(obj).then(res=>{
+                this.arr = this.arr.concat(res.data);
+            })
         }
     },
     created(){
