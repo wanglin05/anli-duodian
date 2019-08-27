@@ -19,26 +19,26 @@ export default {
                 {
                     title:'首页',
                     url:'/home',
-                    img:require('@/assets/svg/home.svg'),
-                    img_active:require('@/assets/svg/home(1).svg'),
+                    img:require('@/assets/home.svg'),
+                    img_active:require('@/assets/home(1).svg'),
                 },
                 {
                     title:'分类',
                     url:'/catalogue',
-                    img:require('@/assets/svg/catalogue.svg'),
-                    img_active:require('@/assets/svg/catalogue(1).svg'),
+                    img:require('@/assets/catalogue.svg'),
+                    img_active:require('@/assets/catalogue(1).svg'),
                 },
                 {
                     title:'购物车',
                     url:'/shopping',
-                    img:require('@/assets/svg/shopping.svg'),
-                    img_active:require('@/assets/svg/shopping(1).svg'),
+                    img:require('@/assets/shopping.svg'),
+                    img_active:require('@/assets/shopping(1).svg'),
                 },
                 {
                     title:'我的',
                     url:'/my',
-                    img:require('@/assets/svg/my.svg'),
-                    img_active:require('@/assets/svg/my(1).svg'),
+                    img:require('@/assets/my.svg'),
+                    img_active:require('@/assets/my(1).svg'),
                 }
             ]
         }

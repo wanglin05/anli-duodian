@@ -19,6 +19,6 @@ export default {
     justify-content: center;
     font-weight: bold; 
     font-size: 18px;
-    background:rgba(248,248,248,1);
+    background:#fff;
   }
 </style>

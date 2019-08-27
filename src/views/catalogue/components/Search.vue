@@ -1,6 +1,6 @@
 <template>
    <div class="search">
-        <input type="text" placeholder="搜索超市商品" name="" id="" v-model="ipt_val" @input="change_val">
+        <input type="text" placeholder="搜索超市商品" v-model="iptVal" @input="changeVal">
     </div>
 </template>
 <script>
@@ -12,17 +12,17 @@ export default {
     },
     data(){
         return {
-            ipt_val:''
+            iptVal:''
         }
     },
     methods:{
-        change_val(){
-            this.$emit('change_val',this.ipt_val)
+        changeVal(){
+            this.$emit('changeVal',this.iptVal)
         }
     },
     created(){
         if(this.val){
-            this.ipt_val = this.val;
+            this.iptVal = this.val;
         }
     }
 }
@@ -32,7 +32,7 @@ export default {
         width: 100%;
         height: 100%;
         border-radius:16px;
-        background:rgba(246,246,246,1);
+        background:#ffff;
         padding-left: 30px;
 
         input{

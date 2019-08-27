@@ -1,7 +1,7 @@
 <template>
     <div class="shoppingCar">
         <div class="wrap">
-            <div v-if="!islogin"><router-link to="/login" style="color:blue">去登录</router-link></div>
+            <div v-if="!islogin"><router-link to="/login" style="color:blue">登录</router-link></div>
             <div class="wrapper" v-else>
                 <div class="content" ref="slideContent">
                     <SlideList v-for="(item,index) in shopCarList" :key="index" :item="item" @remove_slideList="refresh_slideList">
@@ -27,14 +27,10 @@
 </template>
 <script>
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
-import api from '@/api/index'
 import ShopList from './components/ShopList'
 import SlideList from './components/SlideList'
+import api from '@/api/index'
 export default {
-    name:'shopCar',
-    props:{
-
-    },
     components:{
         ShopList,
         SlideList
@@ -42,6 +38,12 @@ export default {
     data(){
         return {
             checked:false
+        }
+    },
+    activated(){
+        this.isloginFn();
+        if(this.islogin){
+            this.getShopCar();
         }
     },
     computed:{
@@ -61,12 +63,6 @@ export default {
             Array.from(this.$refs.slideContent.children).forEach(item=>{
                 item.style.transform = `translate(0,0)`;
             }) 
-        }
-    },
-    activated(){
-        this.isloginFn();
-        if(this.islogin){
-            this.getShopCar();
         }
     },
     watch:{
@@ -93,9 +89,9 @@ export default {
         .sum_footer{
             width: 100%;
             height: 49px;
-            background:rgba(255,255,255,1);
-            border-radius:0px 0px 6px 6px;
-            border:1px solid rgba(237,237,237,1);
+            background:#fff;
+            border-radius:0px 0px 5px 5px;
+            border:1px solid #fff;
             display: flex;
 
             >div{
@@ -105,8 +101,7 @@ export default {
             }
 
             .left{
-                font-size:13px;
-
+                font-size:14px;
                 .van-checkbox{
                     margin-left: 10px;
                 }
@@ -116,20 +111,19 @@ export default {
                 font-size: 14px;
                 font-weight:500;
                 justify-content: center;
-                color:rgba(17,17,17,1);
+                color:#222;
 
                 span{
                     font-size: 18px;
-                    color:rgba(254,49,19,1);
+                    color:rgb(250, 65, 36);
                 }
             }
 
             .right{
                 font-size: 16px;
-                color: white;
+                color: #fff;
                 justify-content: center;
-                background:rgba(255,64,54,1);
-                box-shadow:0px 1px 1px 0px rgba(255,64,54,0.2);
+                background:rgb(250, 65, 36);
             }
         }
     }

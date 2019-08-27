@@ -4,19 +4,20 @@
         <div class="searchBox">
             <Search></Search>
         </div>
+        
         <div class="wrap">
             <div class="content">
                 <div class="left">
-                    <p v-for="(item,index) in typeArr" :key="item.id" :class="{left_active:ind==index}" @click="clk_left(index)">
+                    <p v-for="(item,index) in typeArr" :key="item.id" :class="{left_active:ind==index}" @click="clkLeft(index)">
                         {{item.title}}
                     </p>
                 </div>
                 <div class="right">
                     <p class="right-header">
-                        <span :class="{span_active:Rind==-1}" @click="clk_all">全部</span>
-                        <span v-for="(item,index) in rightType" :key="item.id" :class="{span_active:index==Rind}" @click="clk_rightSpan(index)">{{item.name}}</span>
+                        <span :class="{span_active:Rind==-1}" @click="clkAll">全部</span>
+                        <span v-for="(item,index) in rightType" :key="item.id" :class="{span_active:index==Rind}" @click="clkRight(index)">{{item.name}}</span>
                     </p>
-                    <div class="right_content">
+                    <div class="right-content">
                         <ProtoPullLoading @scroll="upload">
                             <List v-for="(item,index) in arr" :key="index" :item="item" className="smlist"></List>
                         </ProtoPullLoading>
@@ -53,19 +54,16 @@ export default {
 
     },
     methods:{
-        //点击左边
-        clk_left(index){
+        clkLeft(index){
             this.ind = index;
             this.rightType = this.typeArr[index].children;
             this.getList();
         },
-        //点击右边头部
-        clk_rightSpan(index){
+        clkRight(index){
             this.Rind = index;
             this.getList();
         },
-        //点击全部
-        clk_all(){
+        clkAll(){
             this.Rind = -1;
             this.getList();
         },
@@ -165,7 +163,6 @@ export default {
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            
             .right-header{
                 width: 100%;
                 height: 27px;
@@ -175,19 +172,16 @@ export default {
                 align-items: center;
                 overflow-x: auto;
                 white-space: nowrap;
-
                 span{
                     padding: 0 10px;
                     color: #999999
                 }
-
                 .span_active{
                     color: black;
                     font-size: 13px;
                 }
             }
-
-            .right_content{
+            .right-content{
                 flex: 1;
                 width: 100%;
                 height: 100%;

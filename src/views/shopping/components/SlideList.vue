@@ -15,13 +15,13 @@ export default {
     },
     data(){
         return {
-            touchStartX:0,  //开始滑动距离
-            touchStartY:0,  //开始滑动距离
-            touchMoveX:0,   //滑动距离
-            touchMoveY:0,   //滑动距离
-            touchEndX:0,    //结束滑动距离
-            touchEndY:0,    //结束滑动距离
-            moveX:0,        //滑动距离
+            touchStartX:0,
+            touchStartY:0,
+            touchMoveX:0,
+            touchMoveY:0,
+            touchEndX:0,
+            touchEndY:0,
+            moveX:0,
         }
     },
     computed:{
@@ -29,7 +29,6 @@ export default {
     },
     methods:{
         ...mapActions('shopCar',['clk_remove']),
-        //点击删除
         clk_del(){
             this.moveX = 0;
             this.clk_remove(this.item);
@@ -41,21 +40,16 @@ export default {
     },
     mounted(){
         let slideList = this.$refs.slideList;
-        // 开始滑动
         slideList.addEventListener('touchstart',(e)=>{
             this.touchStartX = e.touches[0].clientX;
             this.touchStartY = e.touches[0].clientY;
         })
-        // 滑动中
         slideList.addEventListener('touchmove',(e)=>{
             this.touchMoveX = e.touches[0].clientX;
             this.touchMoveY = e.touches[0].clientY;
-
             if(this.touchMoveY - this.touchStartY > 10){
                 return;
             }
-
-            //左滑
             if(this.touchStartX - this.touchMoveX > 20){
                 this.moveX = this.touchMoveX - this.touchStartX;
                 slideList.style.transform = `translate(${this.moveX}px,0px)`;
@@ -75,7 +69,6 @@ export default {
                 }
             }
         })
-        // 滑动结束
         slideList.addEventListener('touchend',(e)=>{
             if(this.touchStartX - this.touchMoveX > 20){
                 

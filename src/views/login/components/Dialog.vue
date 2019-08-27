@@ -27,12 +27,12 @@ export default {
             arr:[],
             val:'',
             num: 6,
-            times: 60,  //倒计时
+            times: 60,  
         }
     },
     methods:{
         clkMask(){
-            this.$emit('hideDialog');
+            this.$emit('dialog');
         },
         keyupFn(e){
             if(!isNaN(e.key*1)){
@@ -49,7 +49,7 @@ export default {
         },
         clkBtn(){
             if(this.arr.length < 6){
-                this.$toast('请输入完整的验证码！');
+                this.$toast('请输入正确的验证码！');
                 return;
             }
 
@@ -57,7 +57,7 @@ export default {
                 phone: this.tel,
                 checkcode: this.arr.join('')
             }).then(res=>{
-                this.$toast('验证成功！')
+                this.$toast('验证成功')
                 sessionStorage.setItem('userinfo',JSON.stringify(res.data));
                 this.$router.push('/home');
             }).catch(res=>{
@@ -74,9 +74,6 @@ export default {
             this.times -= 1;
         },1000)
     },
-    mounted(){
-
-    },
     beforeDestroy() {
         clearInterval(this._setInterval);
     },
@@ -89,13 +86,11 @@ export default {
         position: absolute;
         left: 0;
         top: 0;
-
         .mask{
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,.3);
         }
-
         .content{
             width: 281px;
             height: 233px;
@@ -107,19 +102,16 @@ export default {
             left: 50%;
             top: 50%;
             transform: translate(-50%,-70%);
-
             h2{
                 font-size:20px;
                 font-weight:600;
                 color:rgba(0,0,0,1);
                 line-height:25px;
             }
-
             .title{
-                font-size:9px;
+                font-size:10px;
                 color:rgba(0,0,0,1);
                 margin: 10px 0;
-
                 span{
                     font-weight:bolder;
                 }
@@ -130,7 +122,7 @@ export default {
                 height: 36px;
                 margin-top: 7px;
                 font-size: 12px;
-                color:rgba(255,255,255,1);
+                color:#fff;
                 border: 0;
                 outline: none;
                 background:linear-gradient(135deg,rgba(253,88,48,1) 0%,rgba(254,71,35,1) 100%);
@@ -156,10 +148,10 @@ export default {
                 .li{
                     width: 36px;
                     height: 36px;
-                    background:rgba(255,255,255,1);
+                    background:#fff;
                     box-shadow:0px 1px 5px 0px rgba(0,0,0,0.23);
                     border-radius:2px;
-                    border:1px solid rgba(151,151,151,1);
+                    border:1px solid #fff;
                     margin: 2px;
                     display: flex;
                     align-items: center;
@@ -169,7 +161,7 @@ export default {
 
             .send-again{
                 font-size: 9px;
-                color:rgba(153,153,153,1);
+                color:#fff;
                 margin: 10px 0;
             }
         }

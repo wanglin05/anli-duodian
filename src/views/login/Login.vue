@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <h1>手机号登录</h1>
-        <p class="tel_title">手机号</p>
+        <p class="title">手机号</p>
         <div class="phone">
             <input class="ipt" v-model="tel_val" type="text" @input="iptChange" autofocus="autofocus">
         </div>
@@ -21,7 +21,7 @@ export default {
     data(){
         return {
             flag: false,
-            tel_val:'',
+            telVal:'',
             isShow: false,
         }
     },
@@ -30,7 +30,7 @@ export default {
             this.isShow = false;
         },
         iptChange(){
-            if(this.tel_val.length == 11){
+            if(this.telVal.length == 11){
                 this.flag = true;
             }
             else{
@@ -38,12 +38,12 @@ export default {
             }
         },
         clkBtn(){
-            if(this.tel_val.trim() == ''){
-                this.$toast('请输入！')
+            if(this.telVal.trim() == ''){
+                this.$toast('请输入')
                 return;
             }
             api.checkCode({
-                phone: this.tel_val
+                phone: this.telVal
             }).then(res=>{
                 this.$toast(res.data.message);
                 this.isShow = true;
@@ -58,7 +58,7 @@ export default {
         height: 100%;
         padding: 20px;
         
-        .tel_title{
+        .title{
             width: 100%;
             font-size:12px;
             font-family:PingFangSC-Regular;

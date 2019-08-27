@@ -18,14 +18,15 @@ export default {
 	shopList: (data)=>axios.get('/api/shop/selectType',{
 		params:data
 	}),
+
 	getShopCar: (data)=>axios.get('/api/car/addCar',{
 		params:data
 	}),
-	//添加购物车
+	
 	add_shopCar: (data)=>axios.post('/api/car/addCar',data),
-	//减少件数
+	
 	remove_shopCarList: (data)=>axios.post('/api/car/removeCar',data),
-	//删除购物车商品
+	
 	remove_shopCar: (data)=>axios.post('/api/car/removeShop',data)
 
 }

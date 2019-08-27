@@ -47,47 +47,39 @@ export default {
     .my{
         width: 100%;
         height: 100%;
-        background:rgba(248,248,248,1);
-
+        background:#fff;
         .user{
             width: 100%;
             height: 132px;
-            background:rgba(254,49,19,1);
-            box-shadow:0px 1px 1px 0px rgba(255,64,54,0.2);
-            padding-bottom: 25px;
+            background:rgb(247, 65, 36);
+            padding-bottom: 24px;
             display: flex;
-
             .left{
                 flex: 1;
-                padding: 0 19px;
-
+                padding: 0 20px;
                 h2{
                     width:80px;
                     height:28px;
-                    margin-top: 29px;
-                    font-size:25px;
-                    color:rgba(255,255,255,1);
+                    margin-top: 28px;
+                    font-size:24px;
+                    color:#fff;
                     font-weight:500;
                     line-height:28px;
                     margin-bottom: 5px;
-                    // -webkit-text-stroke:1px rgba(255,255,255,1);
                 }
-
                 p{
                     font-size: 12px;
-                    color:rgba(255,255,255,1);
+                    color:#fff;
                 }
             }
-
             .right{
                 width:60px;
                 height: 100%;
                 display: flex;
                 align-items: center;
-
                 img{
-                    width: 44px;
-                    height: 44px;
+                    width: 45px;
+                    height: 45px;
                 }
             }
         }
