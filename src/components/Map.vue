@@ -16,12 +16,9 @@
     </div>
 </template>
 <script>
-import Search from '@/views/Type/components/Search'
+import Search from '@/views/catalogue/components/Search'
 import {getPlugin} from '@/utils/map'
 export default {
-    props:{
-
-    },
     components:{
         Search
     },
@@ -29,9 +26,6 @@ export default {
         return {
             arr:[]
         }
-    },
-    computed:{
-
     },
     methods:{
         change_val(val){
@@ -52,7 +46,6 @@ export default {
                 }
             })
         },
-        //点击
         clk_li(item){
             this.$router.push({
                 name:'home',
@@ -62,12 +55,9 @@ export default {
             })
         }
     },
-    created(){
-
-    },
     async mounted(){
         this.search = await getPlugin('AMap.Autocomplete',{
-            // 配置项
+
         })
     }
 }

@@ -2,13 +2,15 @@
     <div>
         <Header/>
         <div class="main">
-          <router-view></router-view>
-          <div class="tab" >
-            <router-link to="/main/home" class="tabItem"><i icon iconfont></i><span>首页</span></router-link>
-            <router-link to="/main/catalogue" class="tabItem"><i icon iconfont></i><span>分类</span></router-link>
-            <router-link to="/main/shop" class="tabItem"><i icon iconfont></i><span>购物车</span></router-link>
-            <router-link to="/main/my" class="tabItem"><i icon iconfont></i><span>我的</span></router-link>
+          <div class="main-item">
+            <router-view></router-view>
           </div>
+        </div>
+        <div class="tab" >
+          <router-link to="/main/home" class="tabItem"><i icon iconfont></i><span>首页</span></router-link>
+          <router-link to="/main/catalogue" class="tabItem"><i icon iconfont></i><span>分类</span></router-link>
+          <router-link to="/main/shop" class="tabItem"><i icon iconfont></i><span>购物车</span></router-link>
+          <router-link to="/main/my" class="tabItem"><i icon iconfont></i><span>我的</span></router-link>
         </div>
     </div>
 </template>
@@ -27,6 +29,11 @@ export default {
 
 <style scoped lang="scss">
 @import "@/styles/_mixin.scss";
+.main-item{
+  width: 100%;
+  height: auto;
+  flex:1;
+}
 .tab{
   width: 100%;
   height: 45px;

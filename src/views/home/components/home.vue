@@ -1,10 +1,16 @@
 <template>
     <div class="wrap">
-        <div class="rank">
-            <p>送至：北京八维研修学院 </p>
+        <div class="rank location">
+            <div class="left" @click="clk_map">
+                <span>*</span>
+                <span id="container">{{site}}</span>
+            </div>
+            <div class="right">
+                <span>#</span>
+            </div>
         </div>
         <div class="banner">
-            <swiper :options="swiperOption" ref="mySwiper">
+            <swiper :options="swiperOption">
                 <swiper-slide v-for="item in bannerList" :key="item.id">
                     <a :href="item.url">
                         <img :src="item.image" alt="" />
@@ -12,12 +18,8 @@
                 </swiper-slide>
             </swiper>
         </div>
-        <div class="nav">
-            <dl v-for="(item,index) in navList" :key="index">
-                <dt><img :src="item.img" alt=""></dt>
-                <dd>{{item.title}}</dd>
-            </dl>
-        </div>
+        <Nav></Nav>
+        <Hot></Hot>
         <div class="list">
             <div v-for="(item,index) in list" :key="index">
                 <dl>
@@ -39,76 +41,33 @@
 
 <script>
 import api from '@/api/index'
+import Nav from '@/components/home/nav'
+import Hot from '@/components/home/hot'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
     data(){
         return{
             bannerList:[],
-            navList:[
-                {
-                    img:require('@/assets/1.png'),
-                    title:"蔬菜每日鲜"
-                },
-                {
-                    img:require('@/assets/2.png'),
-                    title:"肉蛋禽"
-                },
-                {
-                    img:require('@/assets/3.png'),
-                    title:"母婴天地"
-                },
-                {
-                    img:require('@/assets/4.png'),
-                    title:"进店把脉"
-                },
-                {
-                    img:require('@/assets/5.png'),
-                    title:"美通卡"
-                },
-                {
-                    img:require('@/assets/6.png'),
-                    title:"早晚市"
-                },
-                {
-                    img:require('@/assets/7.png'),
-                    title:"品牌汇"
-                },
-                {
-                    img:require('@/assets/8.png'),
-                    title:"领劵中心"
-                },
-                {
-                    img:require('@/assets/9.png'),
-                    title:"支付优惠"
-                },
-                {
-                    img:require('@/assets/10.png'),
-                    title:"直采品牌"
-                }
-            ],
             swiperOption:{
-                spaceBetween:30,
-                centeredSlides:true,
-                autoplay:{
-                    delay:2500,
-                    disableOnInteraction:false
-                }
+                speed: 1000,
+                autoplay:3000
             },
             list:[],
             pageid:0,
-            limit:10
+            limit:10,
+            site:'',
         }
     },
-    props: {
-        msg: String
-    },
     components:{
+        Nav,
+        Hot,
         swiper,
-        swiperSlide
-    },    
+        swiperSlide 
+    },
     created () {
         api.banner().then(res=>{
             this.bannerList = res.data;
+            console.log(res.bannerList)
         })
         api.getList({
             pageid:this.pageid,
@@ -116,7 +75,36 @@ export default {
         }).then(res=>{
             let {code,data}=res.data
             this.list = data
-            console.log(res.data)
+            // console.log(res.data)
+        })
+
+        this.$nextTick(()=>{
+            if(this.$route.params.item){
+                let obj = JSON.parse(this.$route.params.item);
+                this.site = obj.name;
+            }  
+        })
+    },
+    methods:{
+        clk_map(){
+            this.$router.push('/map')
+        }
+    },
+    mounted(){
+        let map = new AMap.Map('');
+        AMap.plugin(['AMap.Geolocation'],()=>{
+            let Map = new AMap.Geolocation({
+                enableHighAccuracy: true,
+                timeout: 10000
+            });
+             map.addControl(Map);
+            Map.getCurrentPosition();
+            AMap.event.addListener(Map, 'complete', (res)=>{
+                this.site = res.formattedAddress;
+            });
+            AMap.event.addListener(Map, 'error', (err)=>{
+                console.log(err)
+            });      
         })
     }
 }
@@ -141,31 +129,6 @@ export default {
         img{
             width: 100%;
             height: 100%; 
-        }
-    }
-}
-.nav{
-    display: flex;
-    flex-wrap: wrap;
-    dl{
-        width: 20%;
-        height: 50%;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        cursor: pointer;
-        dt{
-            width: 60%;
-            height: 60%;
-            img{
-                width: 100%;
-                height: 100%;
-            }
-        }
-        dd{
-            flex: 1;
-            font-size: 12px;
-            color: #999;
         }
     }
 }

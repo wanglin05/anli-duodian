@@ -1,25 +1,24 @@
 <template>
-    <header>
-        <p>学院超市</p>
-    </header>
+  <div class="header">
+    {{title}}
+  </div>
 </template>
 <script>
 export default {
-    computed:{
-    },
-    created(){
-    }
+  props:{
+    title:String
   }
+}
 </script>
 <style scoped lang="scss">
-    @import "../styles/_mixin.scss";
-    header{
-        width: 100%;
-        height:45px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        font-weight: 800;
-    }
+  .header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold; 
+    font-size: 18px;
+    background:rgba(248,248,248,1);
+  }
 </style>
