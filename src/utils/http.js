@@ -1,48 +1,42 @@
 import axios from 'axios'
-// import { Message } from 'element-ui';
 
-const httpAxios = axios.create({
+let httpAxios = axios.create({
+	baseURL: '',
 	timeout: 2000
 })
 
-httpAxios.interceptors.request.use((config) => {
-	return config={
-		...config,
-		headers:{
-			...config.headers
+httpAxios.interceptors.request.use(
+	config => {
+		return {
+			...config,
+			headers: {
+				...config.headers,
+				authorization: window.sessionStorage.getItem('authorization')
+			}
 		}
+	},
+	error => {
+		return Promise.reject(error)
 	}
-}, (error) => {
-	return Promise.reject(error)
-})
+)
 
-httpAxios.interceptors.response.use((response)=>{
-	let {code,message}=response.data
-	if(code){
-		return response.data
+httpAxios.interceptors.response.use(
+	response => {
+		let { code } = response.data
+		if (code) {
+			return response.data
+		}
+		return Promise.reject(response.data)
+	},
+	error => {
+		return Promise.reject(error)
 	}
-	// Message({
-	//   message:msg,
-	//   type:'error'
-	// })
-	return Promise.reject(response.data)
-},(error)=>{
-	console.log(error)
-	// Message({
-	//   message:error.response.data.msg || error.response.statusText,
-	//   type:"error"
-	// })
-	return Promise.reject(error)
-})
-
-export {
-	httpAxios as axios
-}
-
+)
+export { httpAxios as axios }
 export default {
-	install(Vue){
-		Object.defineProperties(Vue.prototype,"$http",{
-			value:httpAxios
+	install(Vue) {
+		Object.defineProperty(Vue.protitype, '$http', {
+			value: httpAxios
 		})
 	}
 }

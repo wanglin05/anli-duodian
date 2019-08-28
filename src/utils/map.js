@@ -1,12 +1,14 @@
-let map = new AMap.Map('container');
+import AMap from 'AMap'
+new AMap.Map('container')
 
-export const getPlugin = (pluginname,options)=>{
-	return new Promise((resolve,reject)=>{
-		AMap.plugin(pluginname,()=>{
-			const OPlugins = new AMap[pluginname.split('.')[1]]({
+export const getPlugin = (pluginName, options) => {
+	return new Promise((resolve, reject) => {
+		AMap.plugin(pluginName, () => {
+			const Oplugins = new AMap[(pluginName.split('.'))[1]]({
 				...options
-			});
-			resolve(OPlugins)
-		}) 
+			})
+			resolve(Oplugins)
+			reject
+		})
 	})
 }
