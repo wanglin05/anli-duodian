@@ -26,49 +26,31 @@
     </div>
 </template>
 <script>
-import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 import ShopList from './components/ShopList'
-import SlideList from './components/SlideList'
-import api from '@/api/index'
 export default {
+    props:{
+
+    },
     components:{
-        ShopList,
-        SlideList
+        ShopList
     },
     data(){
         return {
             checked:false
         }
     },
-    activated(){
-        this.isloginFn();
-        if(this.islogin){
-            this.getShopCar();
-        }
-    },
     computed:{
-        ...mapState('user',['islogin']),
-        ...mapGetters('shopCar',['sum_price']),
-        ...mapState('shopCar',['shopCarList','all_checked'])
+        ...mapState('user',['islogin'])
     },
     methods:{
         ...mapMutations('user',['isloginFn']),
-        ...mapMutations('shopCar',['clk_all_checked','clk_checked']),
-        ...mapActions('shopCar',['getShopCar']),
-        clk_all(){
-            this.clk_all_checked();
-            this.checked = this.all_checked;
-        },
-        refresh_slideList(){
-            Array.from(this.$refs.slideContent.children).forEach(item=>{
-                item.style.transform = `translate(0,0)`;
-            }) 
-        }
     },
-    watch:{
-        all_checked(val){
-            this.checked = val;
-        }
+    created(){
+        this.isloginFn();
+    },
+    mounted(){
+
     }
 }
 </script>
